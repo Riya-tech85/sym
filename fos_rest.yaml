@@ -1,0 +1,38 @@
+# fos_rest: 
+#     param_fetcher_listener:  true
+#     allowed_methods_listener:  true
+#     routing_loader: false
+#     view:
+#         view_response_listener:  true
+#         formats:
+#             html: true    
+#     serializer: true
+#     exception:
+#         codes:
+#             Doctrine\ORM\EntityNotFoundException: 404
+#         messages:
+#             Doctrine\ORM\EntityNotFoundException: true
+#     format_listener:
+#         rules:
+#             # - { path: ^/api/doc, prefer_extension: false, fallback_format: json }
+#             - { path: ^/api, prefer_extension: false, fallback_format: json, priorities: [ json, html, xml ] }
+fos_rest:
+    param_fetcher_listener: true
+    view:
+        mime_types:
+            json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
+        view_response_listener: 'force'
+        formats:
+            xml:  false
+            json: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ json, html ], fallback_format: ~, prefer_extension: true }
+    exception:
+        codes:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': 404
+            'Doctrine\ORM\OptimisticLockException': HTTP_CONFLICT
+        messages:
+            'Symfony\Component\Routing\Exception\ResourceNotFoundException': true
+    allowed_methods_listener: true
+    body_listener: true
