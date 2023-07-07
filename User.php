@@ -26,13 +26,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=30,nullable=true)
      *  @Assert\NotBlank(message="The name should not be blank.")
      * @Assert\Length(max=255, maxMessage="The name cannot exceed {{ limit }} characters.")
-     * @Groups("grp1")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"grp2"})
      */
     private $phone;
 
@@ -115,7 +113,7 @@ class User implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles = ['ROLE_USER'];
 
         return array_unique($roles);
     }
@@ -126,7 +124,6 @@ class User implements UserInterface
 
         return $this;
     }
-
     /**
      * @see UserInterface
      */

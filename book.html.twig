@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+     
+    <nav class = "navbar navbar-expand-sm ">
+        <div class="container pt-1 bg-success">
+            <span class = "justify-content-end">
+                <a href = {{ path('app_logout') }}><button>LOGOUT</button></a>
+            </span>
+        </div>
+    </nav>
+
+    <div class = "container ml-5 mr-5 mt-5 mb-5 border">
+        <h1 class = "d-flex justify-content-center mt-2 ">Hey {{ app.user.username }}</h1><br><br>
+            <div class = "container" >
+                <b style = "color : blue;">{$x.employer_jobtitle}</b>
+                <br>
+                Posted by - {$x.employer_name}<br>
+                Posted on - {$x.date}<br>
+                Location - {$x.employer_location} <br>
+                Contact Email - {$x.employer_email}
+            </div>
+{% endblock %}
